@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INTERTORMAS</title>
+    <style>
+
+        div {
+            display: flex;
+            justify-content: center;
+
+        }
+        .sound-button {
+            cursor: pointer;
+            aspect-ratio: 1/1;
+            width: 300px; /* ou o tamanho que preferir */
+
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <img src="lg1.png" class="sound-button" id="sound1" />
+        <img src="lg2.png" class="sound-button" id="sound2" />
+        <img src="lg3.png" class="sound-button" id="sound3" />
+        <img src="lg4.png"  class="sound-button" id="sound4" />
+    </div>
+
+    <audio id="audio1" src="audio1.mp3"></audio>
+    <audio id="audio2" src="audio2.mp3"></audio>
+    <audio id="audio3" src="audio3.mp3"></audio>
+    <audio id="audio4" src="audio4.mp3"></audio>
+    <script>
+        function playSound(soundId) {
+            var sound = document.getElementById(soundId);
+            sound.play();
+        }
+
+        document.getElementById('sound1').addEventListener('click', function() { playSound('audio1'); });
+        document.getElementById('sound2').addEventListener('click', function() { playSound('audio2'); });
+        document.getElementById('sound3').addEventListener('click', function() { playSound('audio3'); });
+        document.getElementById('sound4').addEventListener('click', function() { playSound('audio4'); });
+    </script>
+</body>
+</html>
