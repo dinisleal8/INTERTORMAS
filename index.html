@@ -1,52 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>INTERTORMAS</title>
     <style>
+        body {
+            background-color: rgb(188, 188, 188);
+            transition: background-color 0.5s ease; /* Adicionando transição suave */
+        }
 
         .cona {
             display: block;
             justify-content: center;
-
+            text-align: center; /* Centralizar conteúdo dentro do contêiner */
         }
+
         .sound-button {
             cursor: pointer;
             aspect-ratio: 1/1;
             width: 300px; /* ou o tamanho que preferir */
-
         }
 
         @media(max-width: 767px) {
-            .sound-button{
+            .sound-button {
                 width: 200px;
             }
         }
+
+        button {
+            font-size: 35px;
+            text-align: center;
+            justify-content: center;
+        }
+        
+        .stop-button-container {
+            margin-top: 20px; /* Espaçamento superior */
+            text-align: center; /* Centralizar botão */
+        }
     </style>
 </head>
+
 <body>
     <div class="cona">
         <img src="lg1.png" class="sound-button" id="sound1" />
         <img src="lg2.png" class="sound-button" id="sound2" />
         <img src="lg3.png" class="sound-button" id="sound3" />
-        <img src="lg4.png"  class="sound-button" id="sound4" />
+        <img src="lg4.png" class="sound-button" id="sound4" />
     </div>
 
     <audio id="audio1" src="audio1.mp3"></audio>
     <audio id="audio2" src="audio2.mp3"></audio>
     <audio id="audio3" src="audio3.mp3"></audio>
     <audio id="audio4" src="audio4.mp3"></audio>
+
+    <div class="stop-button-container">
+        <button id="stopButton">Parar</button>
+    </div>
+
     <script>
+        var currentlyPlaying = null;
+
         function playSound(soundId) {
             var sound = document.getElementById(soundId);
+            if (currentlyPlaying && currentlyPlaying !== sound) {
+                currentlyPlaying.pause();
+            }
             sound.play();
+            currentlyPlaying = sound;
         }
 
-        document.getElementById('sound1').addEventListener('click', function() { playSound('audio1'); });
-        document.getElementById('sound2').addEventListener('click', function() { playSound('audio2'); });
-        document.getElementById('sound3').addEventListener('click', function() { playSound('audio3'); });
-        document.getElementById('sound4').addEventListener('click', function() { playSound('audio4'); });
+        function stopSound() {
+            if (currentlyPlaying) {
+                currentlyPlaying.pause();
+                currentlyPlaying.currentTime = 0; // Reinicia a reprodução para o início
+                currentlyPlaying = null;
+            }
+        }
+
+        document.getElementById('sound1').addEventListener('click', function () { playSound('audio1'); });
+        document.getElementById('sound2').addEventListener('click', function () { playSound('audio2'); });
+        document.getElementById('sound3').addEventListener('click', function () { playSound('audio3'); });
+        document.getElementById('sound4').addEventListener('click', function () { playSound('audio4'); });
+
+        document.getElementById('stopButton').addEventListener('click', stopSound);
+
+        // Função para gerar uma cor RGB aleatória
+        function randomRGB() {
+            return 'rgb(' + Math.floor(Math.random() * 256) + ',' +
+                Math.floor(Math.random() * 256) + ',' +
+                Math.floor(Math.random() * 256) + ')';
+        }
+
+        // Função para atualizar o background em intervalos regulares
+        setInterval(function () {
+            document.body.style.backgroundColor = randomRGB();
+        }, 300); // Mudança a cada 2 segundos
     </script>
 </body>
+
 </html>
